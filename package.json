@@ -1,0 +1,16 @@
+{
+  "name": "what-to-cook",
+  "version": "0.1.0",
+  "description": "今晚吃什么 - Monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=packages/server",
+    "dev:mp": "npm run dev:weapp --workspace=packages/miniprogram",
+    "build:server": "npm run build --workspace=packages/server",
+    "db:migrate": "npm run db:migrate --workspace=packages/server",
+    "db:studio": "npm run db:studio --workspace=packages/server"
+  }
+}

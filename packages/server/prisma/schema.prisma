@@ -1,0 +1,202 @@
+// Prisma Schema for 今晚吃什么
+// Run: npx prisma generate && npx prisma migrate dev
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── 用户 & 家庭 ──────────────────────────────────────────────────────────────
+
+model User {
+  id         String   @id @default(cuid())
+  openid     String   @unique  // 微信 openid
+  nickname   String?
+  avatarUrl  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  family     Family?  @relation(fields: [familyId], references: [id])
+  familyId   String?
+}
+
+model Family {
+  id            String   @id @default(cuid())
+  name          String   @default("我的家庭")
+  memberCount   Int      @default(2)
+  hasElder      Boolean  @default(false)
+  hasChildren   Boolean  @default(false)
+  cookingLevel  CookingLevel @default(MEDIUM)
+  flavorTags    String[] // 口味偏好标签
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  members       User[]
+  restrictions  FamilyRestriction[]
+  dailyMenus    DailyMenu[]
+  shoppingLists ShoppingList[]
+  checkins      Checkin[]
+  pantryItems   PantryItem[]
+  scanLogs      PantryScanLog[]
+}
+
+model FamilyRestriction {
+  id              String           @id @default(cuid())
+  family          Family           @relation(fields: [familyId], references: [id])
+  familyId        String
+  restrictionType RestrictionType
+  ingredientName  String
+}
+
+enum CookingLevel {
+  SIMPLE
+  MEDIUM
+  ADVANCED
+}
+
+enum RestrictionType {
+  ALLERGY
+  RELIGION
+  DISLIKE
+}
+
+// ─── 菜谱 ─────────────────────────────────────────────────────────────────────
+
+model Recipe {
+  id           String     @id @default(cuid())
+  name         String
+  imageUrl     String?
+  difficulty   Difficulty @default(EASY)
+  cookTime     Int        // 分钟
+  servings     Int        @default(2)
+  flavorTags   String[]   // 口味标签
+  categoryTags String[]   // 荤/素/汤/主食
+  seasonTags   String[]   // 春/夏/秋/冬/全年
+  steps        Json       // [{order, description, imageUrl?}]
+  isPublished  Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  ingredients  RecipeIngredient[]
+  menuItems    DailyMenuItem[]
+}
+
+model RecipeIngredient {
+  id             String         @id @default(cuid())
+  recipe         Recipe         @relation(fields: [recipeId], references: [id])
+  recipeId       String
+  ingredientName String         // 标准化名称
+  quantity       Float?
+  unit           String?        // g/个/根/勺/适量
+  isOptional     Boolean        @default(false)
+  ingredientType IngredientType @default(MAIN)
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum IngredientType {
+  MAIN       // 主料
+  SEASONING  // 调味料
+  GARNISH    // 配料
+}
+
+// ─── 菜单 & 购物清单 ──────────────────────────────────────────────────────────
+
+model DailyMenu {
+  id          String      @id @default(cuid())
+  family      Family      @relation(fields: [familyId], references: [id])
+  familyId    String
+  menuDate    DateTime    @db.Date
+  mealType    MealType    @default(DINNER)
+  isConfirmed Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+
+  items         DailyMenuItem[]
+  shoppingList  ShoppingList?
+}
+
+model DailyMenuItem {
+  id       String    @id @default(cuid())
+  menu     DailyMenu @relation(fields: [menuId], references: [id])
+  menuId   String
+  recipe   Recipe    @relation(fields: [recipeId], references: [id])
+  recipeId String
+  isLocked Boolean   @default(false) // 用户锁定，不参与刷新
+  order    Int       @default(0)
+}
+
+model ShoppingList {
+  id         String    @id @default(cuid())
+  family     Family    @relation(fields: [familyId], references: [id])
+  familyId   String
+  menu       DailyMenu @relation(fields: [menuId], references: [id])
+  menuId     String    @unique
+  items      Json      // [{name, quantity, unit, checked, isFromPantry}]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+}
+
+// ─── 打卡 ─────────────────────────────────────────────────────────────────────
+
+model Checkin {
+  id          String   @id @default(cuid())
+  family      Family   @relation(fields: [familyId], references: [id])
+  familyId    String
+  checkinDate DateTime @db.Date
+  recipeIds   String[]
+  photoUrls   String[]
+  notes       String?
+  createdAt   DateTime @default(now())
+}
+
+// ─── 食材库存（Pantry Tracker）────────────────────────────────────────────────
+
+model PantryItem {
+  id             String      @id @default(cuid())
+  family         Family      @relation(fields: [familyId], references: [id])
+  familyId       String
+  ingredientName String      // 标准化食材名称
+  quantity       Float?      // 当前库存数量
+  unit           String?     // g/个/根/袋
+  isStaple       Boolean     @default(false) // 是否为常备品（盐/酱油等）
+  isDepleted     Boolean     @default(false) // 常备品是否已用完
+  source         PantrySource @default(MANUAL)
+  expiryDate     DateTime?   // 保质期（可选）
+  lastUpdated    DateTime    @default(now())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@unique([familyId, ingredientName])
+}
+
+// 记录每次AI识别结果，用于持续优化Prompt
+model PantryScanLog {
+  id             String   @id @default(cuid())
+  family         Family   @relation(fields: [familyId], references: [id])
+  familyId       String
+  photoUrl       String   // COS图片URL
+  aiRawResult    Json?    // AI返回的原始JSON
+  confirmedItems Json?    // 用户确认后的食材列表
+  modelUsed      String?  // 使用的AI模型版本
+  createdAt      DateTime @default(now())
+}
+
+enum PantrySource {
+  PHOTO_AI  // 拍照AI识别
+  MANUAL    // 手动录入
+  BARCODE   // 条形码扫描
+}

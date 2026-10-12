@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.swc/
+.cache/
+coverage/
+*.tsbuildinfo
+*.log
+.env
+.env.*
+!.env.example
+uploads/
+project.private.config.json
+.DS_Store
+Thumbs.db

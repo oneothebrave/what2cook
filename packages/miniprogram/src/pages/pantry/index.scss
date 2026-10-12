@@ -1,0 +1,70 @@
+.pantry-page {
+  min-height: 100vh;
+  padding: 32rpx;
+  box-sizing: border-box;
+  background: #fffdf8;
+  color: #2a2926;
+}
+
+.scan-section,
+.ai-result,
+.section {
+  margin-bottom: 24rpx;
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #ffffff;
+  border: 1rpx solid #ece7de;
+  box-shadow: 0 8rpx 24rpx rgba(42, 41, 38, 0.06);
+}
+
+.scan-hint,
+.empty-hint,
+.confidence,
+.item-expiry {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #7b756b;
+}
+
+.ai-result-title,
+.section-title {
+  display: block;
+  margin-bottom: 20rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.ai-item,
+.pantry-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0ebe2;
+}
+
+.ai-item.selected {
+  color: #2f8f5b;
+}
+
+.ai-qty,
+.item-qty,
+.item-status {
+  font-size: 26rpx;
+  color: #7b756b;
+}
+
+.item-name {
+  font-size: 30rpx;
+  font-weight: 650;
+}
+
+.item-status.ok {
+  color: #2f8f5b;
+}
+
+.item-status.depleted {
+  color: #d94a3d;
+}

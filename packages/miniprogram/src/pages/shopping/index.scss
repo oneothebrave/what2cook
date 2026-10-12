@@ -1,0 +1,106 @@
+.shopping-page {
+  min-height: 100vh;
+  padding: 32rpx;
+  box-sizing: border-box;
+  background: #fffdf8;
+  color: #2a2926;
+}
+
+.list-scroll {
+  height: calc(100vh - 160rpx);
+}
+
+.section {
+  margin-bottom: 24rpx;
+  padding: 28rpx;
+  border-radius: 28rpx;
+  background: #ffffff;
+  border: 1rpx solid #ece7de;
+  box-shadow: 0 8rpx 24rpx rgba(42, 41, 38, 0.06);
+}
+
+.section-title {
+  display: block;
+  margin-bottom: 20rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0ebe2;
+}
+
+.item-check {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 3rpx solid #2f8f5b;
+}
+
+.item-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 30rpx;
+  font-weight: 650;
+}
+
+.item-qty,
+.item-tag {
+  font-size: 26rpx;
+  color: #7b756b;
+}
+
+.item-pantry {
+  opacity: 0.78;
+}
+
+.pantry-name {
+  color: #2f8f5b;
+}
+
+.check-icon {
+  font-size: 28rpx;
+}
+
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  gap: 16rpx;
+  padding: 20rpx 32rpx 40rpx;
+  box-sizing: border-box;
+  background: #fffdf8;
+}
+
+.copy-btn,
+.jump-btn {
+  flex: 1;
+}
+
+.platform-popup {
+  padding: 32rpx;
+  background: #fffdf8;
+}
+
+.popup-title {
+  display: block;
+  margin-bottom: 24rpx;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.platform-btn {
+  margin-bottom: 16rpx;
+}

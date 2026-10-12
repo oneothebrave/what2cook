@@ -1,0 +1,295 @@
+.home-page {
+  min-height: 100vh;
+  background: #fffdf8;
+  color: #2a2926;
+}
+
+.home-scroll {
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 28rpx 32rpx 0;
+}
+
+.pantry-card,
+.recipe-row,
+.summary-panel {
+  background: #ffffff;
+  border: 1rpx solid #ece7de;
+  box-shadow: 0 8rpx 24rpx rgba(42, 41, 38, 0.06);
+}
+
+.pantry-card {
+  border-radius: 32rpx;
+  padding: 32rpx;
+}
+
+.card-title-row,
+.switch-row,
+.pantry-content,
+.recipe-row,
+.recipe-meta,
+.summary-panel {
+  display: flex;
+  align-items: center;
+}
+
+.card-title-row,
+.pantry-content,
+.summary-panel {
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 36rpx;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #2a2926;
+}
+
+.switch-row {
+  gap: 12rpx;
+}
+
+.switch-label {
+  font-size: 26rpx;
+  color: #7b756b;
+}
+
+.pantry-content {
+  gap: 20rpx;
+  margin-top: 28rpx;
+}
+
+.pantry-chips {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  gap: 12rpx;
+  overflow: hidden;
+}
+
+.pantry-chip {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  flex-shrink: 0;
+  padding: 12rpx 18rpx;
+  border-radius: 999rpx;
+  background: #faf4ea;
+  color: #2a2926;
+}
+
+.pantry-more {
+  background: #edf7f0;
+  color: #2f8f5b;
+}
+
+.chip-name {
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.chip-amount {
+  font-size: 24rpx;
+  color: #7b756b;
+}
+
+.pantry-off {
+  font-size: 26rpx;
+  color: #7b756b;
+}
+
+.update-action {
+  flex-shrink: 0;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #2f8f5b;
+}
+
+.recommend-section {
+  margin-top: 40rpx;
+}
+
+.section-heading {
+  margin-bottom: 20rpx;
+}
+
+.section-title,
+.section-subtitle,
+.recipe-name,
+.summary-main,
+.summary-sub {
+  display: block;
+}
+
+.section-title {
+  font-size: 44rpx;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #2a2926;
+}
+
+.section-subtitle {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  color: #7b756b;
+}
+
+.recipe-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.recipe-row {
+  position: relative;
+  min-height: 148rpx;
+  border-radius: 28rpx;
+  padding: 18rpx;
+  box-sizing: border-box;
+  gap: 18rpx;
+}
+
+.recipe-row.selected {
+  border-color: rgba(47, 143, 91, 0.26);
+}
+
+.recipe-row.unselected {
+  opacity: 0.72;
+}
+
+.select-control {
+  width: 44rpx;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.select-mark {
+  font-size: 34rpx;
+  line-height: 1;
+  font-weight: 800;
+  color: #2f8f5b;
+}
+
+.recipe-image {
+  width: 112rpx;
+  height: 112rpx;
+  flex-shrink: 0;
+  border-radius: 24rpx;
+  background: #faf4ea;
+}
+
+.recipe-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.recipe-name {
+  font-size: 34rpx;
+  line-height: 1.25;
+  font-weight: 750;
+  color: #2a2926;
+}
+
+.recipe-meta {
+  gap: 10rpx;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #7b756b;
+}
+
+.status-text {
+  font-weight: 650;
+}
+
+.status-text.ready {
+  color: #2f8f5b;
+}
+
+.status-text.missing {
+  color: #f39a3d;
+}
+
+.dot,
+.time-text {
+  color: #7b756b;
+}
+
+.refresh-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 112rpx;
+  height: 64rpx;
+  border-radius: 999rpx;
+  background: #faf4ea;
+  color: #2f8f5b;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.summary-panel {
+  margin-top: 28rpx;
+  border-radius: 28rpx;
+  padding: 28rpx 30rpx;
+}
+
+.summary-main {
+  font-size: 30rpx;
+  line-height: 1.25;
+  font-weight: 750;
+  color: #2a2926;
+}
+
+.summary-sub {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #7b756b;
+}
+
+.chevron {
+  margin-left: 24rpx;
+  font-size: 56rpx;
+  line-height: 1;
+  color: #b3aca1;
+}
+
+.bottom-spacer {
+  height: 176rpx;
+}
+
+.fixed-action {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20rpx 32rpx 40rpx;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0), #fffdf8 28%);
+}
+
+.primary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 104rpx;
+  border-radius: 28rpx;
+  background: #2f8f5b;
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 750;
+  box-shadow: 0 12rpx 28rpx rgba(47, 143, 91, 0.18);
+}
+
+.primary-button:active {
+  background: #247247;
+}
+
+.primary-button.disabled {
+  background: #d9d3c8;
+  box-shadow: none;
+}
